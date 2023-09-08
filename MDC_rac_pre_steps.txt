@@ -1,0 +1,219 @@
+[oracle@hrmdc1oel01 software]$ cat .p
+PRDA7pr$bQJ59Bj
+[oracle@hrmdc1oel01 software]$ more rac.txt
+
+groupadd -g 54421 oinstall
+groupadd -g 54322 dba
+groupadd -g 54323 oper
+groupadd -g 54324 backupdba
+groupadd -g 54325 dgdba
+groupadd -g 54326 kmdba
+groupadd -g 54327 asmdba
+groupadd -g 54328 asmoper
+groupadd -g 54329 asmadmin
+groupadd -g 54330 racdba
+
+/usr/sbin/useradd -u 54331 -g oinstall -G dba,asmdba,asmoper,asmadmin,backupdba,dgdba,kmdba,racdba grid
+
+usermod -aG dba,asmdba,asmoper,asmadmin,racdba grid
+
+mkdir -p /u02/app/19.3.0/grid
+mkdir -p /u02/app/grid
+mkdir -p /u02/app/oracle
+chown -R grid:oinstall /u02
+chown oracle:oinstall /u02/app/oracle
+chmod -R 775 /u02/
+
+==========================================
+[root@hrmdc1oel07 ~]# export ORACLE_HOME=/u02/app/19.3.0/grid
+[root@hrmdc1oel07 ~]# export ORACLE_BASE=/tmp
+[root@hrmdc1oel07 ~]# export PATH=$PATH:$ORACLE_HOME
+[root@hrmdc1oel07 ~]# export PATH=$PATH:$ORACLE_HOME/bin
+
+export ORACLE_HOME=/u02/app/19.3.0/grid
+export ORACLE_BASE=/tmp
+export PATH=$PATH:$ORACLE_HOME/bin
+
+ls -l /dev/oracleafd/disks
+
+asmcmd afd_label ASM_DISK_01 /dev/dm-10 --init
+asmcmd afd_label ASM_DISK_02 /dev/dm-11 --init
+asmcmd afd_label ASM_DISK_03 /dev/dm-16 --init
+
+ 
+ls -l /dev/oracleafd/disks
+
+[root@hrmdc1oel07 ~]# asmcmd afd_label ASM_DISK_01 /dev/dm-10 --init
+Creating diag directory /tmp/diag
+[root@hrmdc1oel07 ~]# asmcmd afd_label ASM_DISK_02 /dev/dm-11 --init
+[root@hrmdc1oel07 ~]# asmcmd afd_label ASM_DISK_03 /dev/dm-16 --init
+[root@hrmdc1oel07 ~]# ls -l /dev/oracleafd/
+total 0
+drwxrwxr-x. 2 grid oinstall 100 Jul 28 10:54 disks
+[root@hrmdc1oel07 ~]# ls -l /dev/oracleafd/disks/
+total 12
+-rw-rw-r--. 1 grid oinstall 34 Jul 28 10:53 ASM_DISK_01
+-rw-rw-r--. 1 grid oinstall 34 Jul 28 10:53 ASM_DISK_02
+-rw-rw-r--. 1 grid oinstall 34 Jul 28 10:54 ASM_DISK_03
+
+asmcmd afd_lslbl
+================================================
+
+asmcmd afd_lslbl /dev/dm-6
+
+asmcmd afd_label ASM_DISK_08 /dev/dm-7
+asmcmd afd_lslbl |grep ASM
+
+==========================================
+
+[root@hrmdc1oel07 ~]# nslookup kcmdc-scan
+Server:         10.68.21.13
+Address:        10.68.21.13#53
+
+Non-authoritative answer:
+Name:   kcmdc-scan.hr.state.sbu
+Address: 10.65.34.109
+Name:   kcmdc-scan.hr.state.sbu
+Address: 10.65.34.108
+Name:   kcmdc-scan.hr.state.sbu
+Address: 10.65.34.107
+
+==================================================
+[grid@hrmdc1oel07 grid]$ ./gridSetup.sh -applyRU /u01/software/PSU/APR2023/35058172/35037840
+ERROR: Unable to verify the graphical display setup. This application requires X display. Make sure that xdpyinfo exist under PATH variable.
+Preparing the home to patch...
+Applying the patch /u01/software/PSU/APR2023/35058172/35037840...
+Successfully applied the patch.
+The log can be found at: /tmp/GridSetupActions2023-07-28_07-11-38AM/installerPatchActions_2023-07-28_07-11-38AM.log
+
+No X11 DISPLAY variable was set, but this program performed an operation which requires it.
+[grid@hrmdc1oel07 grid]$ ./gridSetup.sh -applyRU /u01/software/PSU/APR2023/35058172/35050341/
+ERROR: Unable to verify the graphical display setup. This application requires X display. Make sure that xdpyinfo exist under PATH variable.
+Preparing the home to patch...
+Applying the patch /u01/software/PSU/APR2023/35058172/35050341/...
+Successfully applied the patch.
+The log can be found at: /tmp/GridSetupActions2023-07-28_07-17-22AM/installerPatchActions_2023-07-28_07-17-22AM.log
+
+No X11 DISPLAY variable was set, but this program performed an operation which requires it.
+
+===========================================
+
+[root@hrmdc1oel01 ~]# asmcmd afd_lslbl |grep ASM
+ASM_DISK_01                           /dev/dm-21
+ASM_DISK_02                           /dev/dm-23
+ASM_DISK_03                           /dev/dm-24
+ASM_DISK_04                           /dev/dm-3
+ASM_DISK_05                           /dev/dm-4
+ASM_DISK_06                           /dev/dm-5
+ASM_DISK_07                           /dev/dm-6
+ASM_DISK_08                           /dev/dm-7
+ASM_DISK_09                           /dev/dm-8
+ASM_DISK_10                           /dev/dm-9
+[root@hrmdc1oel01 ~]# asmcmd afd_label ASM_DISK_11 /dev/dm-10
+[root@hrmdc1oel01 ~]# asmcmd afd_label ASM_DISK_12 /dev/dm-11
+[root@hrmdc1oel01 ~]# asmcmd afd_label ASM_DISK_13 /dev/dm-12
+[root@hrmdc1oel01 ~]# asmcmd afd_label ASM_DISK_14 /dev/dm-13
+[root@hrmdc1oel01 ~]# asmcmd afd_label ASM_DISK_15 /dev/dm-14
+[root@hrmdc1oel01 ~]# asmcmd afd_label ASM_DISK_16 /dev/dm-15
+[root@hrmdc1oel01 ~]# asmcmd afd_label ASM_DISK_17 /dev/dm-16
+[root@hrmdc1oel01 ~]# asmcmd afd_label ASM_DISK_18 /dev/dm-17
+[root@hrmdc1oel01 ~]# asmcmd afd_label ASM_DISK_19 /dev/dm-25
+[root@hrmdc1oel01 ~]# asmcmd afd_lslbl |grep ASM
+ASM_DISK_01                           /dev/dm-21
+ASM_DISK_02                           /dev/dm-23
+ASM_DISK_03                           /dev/dm-24
+ASM_DISK_04                           /dev/dm-3
+ASM_DISK_05                           /dev/dm-4
+ASM_DISK_06                           /dev/dm-5
+ASM_DISK_07                           /dev/dm-6
+ASM_DISK_08                           /dev/dm-7
+ASM_DISK_09                           /dev/dm-8
+ASM_DISK_10                           /dev/dm-9
+ASM_DISK_11                           /dev/dm-10
+ASM_DISK_12                           /dev/dm-11
+ASM_DISK_13                           /dev/dm-12
+ASM_DISK_14                           /dev/dm-13
+ASM_DISK_15                           /dev/dm-14
+ASM_DISK_16                           /dev/dm-15
+ASM_DISK_17                           /dev/dm-16
+ASM_DISK_18                           /dev/dm-17
+ASM_DISK_19                           /dev/dm-25
+[root@hrmdc1oel01 ~]#
+[root@hrmdc1oel01 ~]# fdisk  /dev/dm-17
+Welcome to fdisk (util-linux 2.23.2).
+
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+Device does not contain a recognized partition table
+Building a new DOS disklabel with disk identifier 0x651c738f.
+
+Command (m for help): n
+Partition type:
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended
+Select (default p): p
+Partition number (1-4, default 1):
+First sector (8192-1048575999, default 8192):
+Using default value 8192
+Last sector, +sectors or +size{K,M,G} (8192-1048575999, default 1048575999):
+Using default value 1048575999
+Partition 1 of type Linux and of size 500 GiB is set
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+
+WARNING: Re-reading the partition table failed with error 22: Invalid argument.
+The kernel still uses the old table. The new table will be used at
+the next reboot or after you run partprobe(8) or kpartx(8)
+Syncing disks.
+=======================================
+[root@hrmdc1oel08 ~]# yum search oracleasm
+Loaded plugins: langpacks, rhnplugin
+This system is receiving updates from Spacewalk server.
+================================================================ N/S matched: oracleasm =================================================================
+kmod-oracleasm.x86_64 : oracleasm kernel module(s)
+oracleasm-support.x86_64 : The Oracle Automatic Storage Management support programs.
+
+  Name and summary matches only, use "search all" for everything.
+[root@hrmdc1oel08 ~]# yum remove oracleasm-support.x86_64
+Loaded plugins: langpacks, rhnplugin
+This system is receiving updates from Spacewalk server.
+Resolving Dependencies
+--> Running transaction check
+---> Package oracleasm-support.x86_64 0:2.1.11-2.el7 will be erased
+--> Finished Dependency Resolution
+--> Finding unneeded leftover dependencies
+Found and removing 0 unneeded dependencies
+
+Dependencies Resolved
+
+=========================================================================================================================================================
+ Package                                  Arch                          Version                                Repository                           Size
+=========================================================================================================================================================
+Removing:
+ oracleasm-support                        x86_64                        2.1.11-2.el7                           @oel7-latest                        266 k
+
+Transaction Summary
+=========================================================================================================================================================
+Remove  1 Package
+
+Installed size: 266 k
+Is this ok [y/N]: y
+Downloading packages:
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Erasing    : oracleasm-support-2.1.11-2.el7.x86_64                                                                                                 1/1
+warning: /etc/sysconfig/oracleasm saved as /etc/sysconfig/oracleasm.rpmsave
+  Verifying  : oracleasm-support-2.1.11-2.el7.x86_64                                                                                                 1/1
+
+Removed:
+  oracleasm-support.x86_64 0:2.1.11-2.el7
+
+Complete!
+[root@hrmdc1oel08 ~]#
+

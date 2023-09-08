@@ -1,0 +1,237 @@
+oracle - sand boxes - TSTE3cMLfmd7D8$
+
+TSTTlA9nWy3R1$a
+
+-- Entries in DNS
+1. Host IPs
+2. Host vips
+3. scan vips
+4. private ips (optional) 
+
+
+
+
+drwxr-xr-x. 4 oracle oinstall    67 May 31 10:07 35354406
+drwxr-x---. 8 oracle oinstall   159 Jul 16 03:51 35319490
+cd grid
+
+unzip /u01/software/LINUX.X64_193000_grid_home.zip
+
+unzip /u01/software/PSU/JUL2023/p6880880_190000_Linux-x86-64.zip
+============================================================
+export ORACLE_HOME=/u02/app/19.3.0/grid
+export ORACLE_BASE=/tmp
+export PATH=$PATH:/u02/app/19.3.0/grid/bin
+
+-- Patch GRID Binaries as grid - before Installation.
+[grid@hrmdc1oel07 grid]$ ./gridSetup.sh -applyRU /u01/software/PSU/JUL2023/35370167/35319490
+                         ./gridSetup.sh -applyRU /u01/software/PSU/JUL2023/35370167/35354406
+=============
+[grid@gtmvlsbxdb12 grid]$ ./gridSetup.sh -applyRU /u01/software/PSU/JUL2023/35370167/35319490
+ERROR: Unable to verify the graphical display setup. This application requires X display. Make sure that xdpyinfo exist under PATH variable.
+Preparing the home to patch...
+Applying the patch /u01/software/PSU/JUL2023/35370167/35319490...
+Successfully applied the patch.
+The log can be found at: /tmp/GridSetupActions2023-08-25_08-01-01AM/installerPatchActions_2023-08-25_08-01-01AM.log
+
+No X11 DISPLAY variable was set, but this program performed an operation which requires it.
+[grid@gtmvlsbxdb12 grid]$
+
+==
+[grid@gtmvlsbxdb12 grid]$ ./gridSetup.sh -applyRU /u01/software/PSU/JUL2023/35370167/35354406
+ERROR: Unable to verify the graphical display setup. This application requires X display. Make sure that xdpyinfo exist under PATH variable.
+Preparing the home to patch...
+Applying the patch /u01/software/PSU/JUL2023/35370167/35354406...
+Successfully applied the patch.
+The log can be found at: /tmp/GridSetupActions2023-08-25_08-18-25AM/installerPatchActions_2023-08-25_08-18-25AM.log
+
+No X11 DISPLAY variable was set, but this program performed an operation which requires it.
+==========================================================
+-- Patch Oracle binaries as "oracle" before install on first node only.
+Patch Oracle software before installation as user oracle.
+[oracle@gtmvlsbxdb12 JUL2023]$ cd /u02/app/oracle/product/19.3.0/db_1/
+./runInstaller -silent -applyRU /u01/software/PSU/JUL2023/35370167/35319490/
+ ./runInstaller -silent -applyRU /u01/software/PSU/JUL2023/35370167/35354406
+****
+[oracle@gtmvlsbxdb12 db_1]$ ./runInstaller -silent -applyRU /u01/software/PSU/JUL2023/35370167/35319490/
+Preparing the home to patch...
+Applying the patch /u01/software/PSU/JUL2023/35370167/35319490/...
+Successfully applied the patch.
+The log can be found at: /tmp/InstallActions2023-08-25_08-48-21AM/installerPatchActions_2023-08-25_08-48-21AM.log
+Launching Oracle Database Setup Wizard...
+
+[FATAL] [INS-32013] The Oracle base location is empty.
+   ACTION: Specify a path for Oracle base location.
+Moved the install session logs to:
+ /u01/app/oraInventory/logs/InstallActions2023-08-25_08-48-21AM
+[oracle@gtmvlsbxdb12 db_1]$ ./runInstaller -silent -applyRU /u01/software/PSU/JUL2023/35370167/35354406
+Preparing the home to patch...
+Applying the patch /u01/software/PSU/JUL2023/35370167/35354406...
+Successfully applied the patch.
+The log can be found at: /tmp/InstallActions2023-08-25_09-12-42AM/installerPatchActions_2023-08-25_09-12-42AM.log
+Launching Oracle Database Setup Wizard...
+
+[FATAL] [INS-32013] The Oracle base location is empty.
+   ACTION: Specify a path for Oracle base location.
+Moved the install session logs to:
+ /u01/app/oraInventory/logs/InstallActions2023-08-25_09-12-42AM
+[oracle@gtmvlsbxdb12 db_1]$
+
+===================================================================================
+- Labeling
+
+[root@gtmvlsbxdb12 ~]# lsblk|grep 5
+  ├─ol-root          252:0    0   16G  0 lvm  /
+  ├─ol-swap          252:1    0    8G  0 lvm  [SWAP]
+  ├─ol-usr           252:2    0   20G  0 lvm  /usr
+  ├─ol-var_log_audit 252:3    0   10G  0 lvm  /var/log/audit
+  ├─ol-var           252:4    0   24G  0 lvm  /var
+  ├─ol-home          252:5    0   10G  0 lvm  /home
+  ├─ol-var_log       252:6    0   10G  0 lvm  /var/log
+  ├─ol-tmp           252:7    0   10G  0 lvm  /tmp
+  └─ol-var_tmp       252:8    0   10G  0 lvm  /var/tmp
+sdd                    8:48   0  500G  0 disk
+└─sdd1                 8:49   0  500G  0 part
+sde                    8:64   0  500G  0 disk
+└─sde1                 8:65   0  500G  0 part
+sdf                    8:80   0  500G  0 disk
+└─sdf1                 8:81   0  500G  0 part
+sdg                    8:96   0  500G  0 disk
+└─sdg1                 8:97   0  500G  0 part
+sdh                    8:112  0  500G  0 disk
+└─sdh1                 8:113  0  500G  0 part
+sdi                    8:128  0  500G  0 disk
+└─sdi1                 8:129  0  500G  0 part
+sdj                    8:144  0    5G  0 disk
+└─sdj1                 8:145  0    5G  0 part
+sdk                    8:160  0    5G  0 disk
+└─sdk1                 8:161  0    5G  0 part
+sdl                    8:176  0    5G  0 disk
+└─sdl1                 8:177  0    5G  0 part
+
+
+
+
+sdj1
+sdk1
+sdl1
+export ORACLE_HOME=/u02/app/19.3.0/grid
+export ORACLE_BASE=/tmp
+export PATH=$PATH:/u02/app/19.3.0/grid/bin
+
+asmcmd afd_label VMSANDBOX_ASM_DISK_01 /dev/sdj1 --init
+asmcmd afd_label VMSANDBOX_ASM_DISK_02 /dev/sdk1 --init
+asmcmd afd_label VMSANDBOX_ASM_DISK_03 /dev/sdl1 --init
+
+[root@gtmvlsbxdb12 ~]# ls -ltr /dev/oracleafd/disks/
+total 12
+-rw-rw-r--. 1 grid oinstall 33 Aug 25 08:27 VMSANDBOX_ASM_DISK_01
+-rw-rw-r--. 1 grid oinstall 33 Aug 25 08:28 VMSANDBOX_ASM_DISK_02
+-rw-rw-r--. 1 grid oinstall 33 Aug 25 08:28 VMSANDBOX_ASM_DISK_03
+[root@gtmvlsbxdb12 ~]#
+========================================
+
+2. Run Cluvffy on NODE1
+-- AS "GRID" user
+/u02/app/19.3.0/grid
+./runcluvfy.sh stage -pre crsinst -n gtmvlsbxdb12.washdc.state.sbu,gtmvlsbxdb13.washdc.state.sbu -r 19 > /tmp/runcluvfy_pre_VMSANDBOX.txt
+============================
+[grid@gtmvlsbxdb12 ~]$ cat /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+
+10.68.26.249    gtmvlsbxdb12.washdc.state.sbu gtmvlsbxdb12
+10.68.27.62     gtmvlsbxdb12-vip gtmvlsbxdb12-vip.washdc.state.sbu
+192.168.10.52   gtmvlsbxdb12-priv1
+192.168.20.52   gtmvlsbxdb12-priv2
+192.168.168.24  gtmvlsbxdb12-sl
+
+
+
+10.68.26.250    gtmvlsbxdb13.washdc.state.sbu gtmvlsbxdb13
+10.68.27.63     gtmvlsbxdb13-vip gtmvlsbxdb13-vip.washdc.state.sbu
+192.168.10.53   gtmvlsbxdb13-priv1
+192.168.20.53   gtmvlsbxdb13-priv2
+192.168.168.25  gtmvlsbxdb13-sl
+
+[root@gtmvlsbxdb13 ~]# systemctl status firewalld
+[root@gtmvlsbxdb13 ~]# systemctl stop firewalld
+[root@gtmvlsbxdb13 ~]# systemctl disable firewalld
+
+================================================
+-- Node1 - root scripts.
+
+[root@gtmvlsbxdb12 oraInventory]# pwd
+/u02/app/oraInventory
+[root@gtmvlsbxdb12 oraInventory]# ./orainstRoot.sh
+Changing permissions of /u02/app/oraInventory.
+Adding read,write permissions for group.
+Removing read,write,execute permissions for world.
+
+Changing groupname of /u02/app/oraInventory to oinstall.
+The execution of the script is complete.
+[root@gtmvlsbxdb12 oraInventory]# pwd
+/u02/app/oraInventory
+[root@gtmvlsbxdb12 oraInventory]# cd /u02/app/19.3.0/grid/
+[root@gtmvlsbxdb12 grid]# ./root.sh
+Performing root user operation.
+
+The following environment variables are set as:
+    ORACLE_OWNER= grid
+    ORACLE_HOME=  /u02/app/19.3.0/grid
+
+Enter the full pathname of the local bin directory: [/usr/local/bin]:
+   Copying dbhome to /usr/local/bin ...
+   Copying oraenv to /usr/local/bin ...
+   Copying coraenv to /usr/local/bin ...
+
+
+Creating /etc/oratab file...
+Entries will be added to the /etc/oratab file as needed by
+Database Configuration Assistant when a database is created
+Finished running generic part of root script.
+Now product-specific root actions will be performed.
+Relinking oracle with rac_on option
+Using configuration parameter file: /u02/app/19.3.0/grid/crs/install/crsconfig_params
+The log of current session can be found at:
+  /u02/app/grid/crsdata/gtmvlsbxdb12/crsconfig/rootcrs_gtmvlsbxdb12_2023-08-25_11-23-38AM.log
+2023/08/25 11:23:58 CLSRSC-594: Executing installation step 1 of 19: 'ValidateEnv'.
+2023/08/25 11:23:58 CLSRSC-594: Executing installation step 2 of 19: 'CheckFirstNode'.
+2023/08/25 11:24:01 CLSRSC-594: Executing installation step 3 of 19: 'GenSiteGUIDs'.
+2023/08/25 11:24:03 CLSRSC-594: Executing installation step 4 of 19: 'SetupOSD'.
+Redirecting to /bin/systemctl restart rsyslog.service
+2023/08/25 11:24:04 CLSRSC-594: Executing installation step 5 of 19: 'CheckCRSConfig'.
+2023/08/25 11:24:04 CLSRSC-594: Executing installation step 6 of 19: 'SetupLocalGPNP'.
+2023/08/25 11:24:18 CLSRSC-594: Executing installation step 7 of 19: 'CreateRootCert'.
+2023/08/25 11:24:23 CLSRSC-594: Executing installation step 8 of 19: 'ConfigOLR'.
+2023/08/25 11:24:45 CLSRSC-594: Executing installation step 9 of 19: 'ConfigCHMOS'.
+2023/08/25 11:24:46 CLSRSC-594: Executing installation step 10 of 19: 'CreateOHASD'.
+2023/08/25 11:24:53 CLSRSC-594: Executing installation step 11 of 19: 'ConfigOHASD'.
+2023/08/25 11:25:01 CLSRSC-330: Adding Clusterware entries to file 'oracle-ohasd.service'
+2023/08/25 11:25:35 CLSRSC-594: Executing installation step 12 of 19: 'SetupTFA'.
+2023/08/25 11:25:35 CLSRSC-594: Executing installation step 13 of 19: 'InstallAFD'.
+2023/08/25 11:26:23 CLSRSC-594: Executing installation step 14 of 19: 'InstallACFS'.
+2023/08/25 11:27:14 CLSRSC-594: Executing installation step 15 of 19: 'InstallKA'.
+2023/08/25 11:27:22 CLSRSC-594: Executing installation step 16 of 19: 'InitConfig'.
+
+[INFO] [DBT-30161] Disk label(s) created successfully. Check /u02/app/grid/cfgtoollogs/asmca/asmca-230825AM112757.log for details.
+
+
+2023/08/25 11:29:00 CLSRSC-482: Running command: '/u02/app/19.3.0/grid/bin/ocrconfig -upgrade grid oinstall'
+CRS-4256: Updating the profile
+Successful addition of voting disk 16ffdc29c4424fcbbfaf7dcdbfd50d79.
+Successfully replaced voting disk group with +OCRDG.
+CRS-4256: Updating the profile
+CRS-4266: Voting file(s) successfully replaced
+##  STATE    File Universal Id                File Name Disk group
+--  -----    -----------------                --------- ---------
+ 1. ONLINE   16ffdc29c4424fcbbfaf7dcdbfd50d79 (AFD:VMSANDBOX_ASM_DISK_01) [OCRDG]
+Located 1 voting disk(s).
+2023/08/25 11:30:21 CLSRSC-4002: Successfully installed Oracle Trace File Analyzer (TFA) Collector.
+2023/08/25 11:30:24 CLSRSC-594: Executing installation step 17 of 19: 'StartCluster'.
+2023/08/25 11:31:44 CLSRSC-343: Successfully started Oracle Clusterware stack
+2023/08/25 11:31:44 CLSRSC-594: Executing installation step 18 of 19: 'ConfigNode'.
+2023/08/25 11:33:08 CLSRSC-594: Executing installation step 19 of 19: 'PostConfig'.
+2023/08/25 11:33:46 CLSRSC-325: Configure Oracle Grid Infrastructure for a Cluster ... succeeded
+[root@gtmvlsbxdb12 grid]#

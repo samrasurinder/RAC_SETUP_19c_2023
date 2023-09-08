@@ -1,0 +1,185 @@
+
+WARNING: 
+Ignoring domains for the following node names specified with domain "gtmvlsbxdb12.washdc.state.sbu,gtmvlsbxdb13.washdc.state.sbu". Verification will proceed with nodes "gtmvlsbxdb12,gtmvlsbxdb13"
+
+Performing following verification checks ...
+
+  Physical Memory ...PASSED
+  Available Physical Memory ...PASSED
+  Swap Size ...FAILED (PRVF-7573)
+  Free Space: gtmvlsbxdb13:/usr,gtmvlsbxdb13:/sbin ...PASSED
+  Free Space: gtmvlsbxdb13:/var ...PASSED
+  Free Space: gtmvlsbxdb13:/etc ...PASSED
+  Free Space: gtmvlsbxdb13:/tmp ...PASSED
+  Free Space: gtmvlsbxdb12:/usr,gtmvlsbxdb12:/sbin ...PASSED
+  Free Space: gtmvlsbxdb12:/var ...PASSED
+  Free Space: gtmvlsbxdb12:/etc ...PASSED
+  Free Space: gtmvlsbxdb12:/tmp ...PASSED
+  User Existence: grid ...
+    Users With Same UID: 54331 ...PASSED
+  User Existence: grid ...PASSED
+  Group Existence: asmadmin ...PASSED
+  Group Existence: asmdba ...PASSED
+  Group Existence: oinstall ...PASSED
+  Group Membership: asmdba ...PASSED
+  Group Membership: asmadmin ...FAILED (PRVG-10460)
+  Group Membership: oinstall(Primary) ...PASSED
+  Run Level ...PASSED
+  Architecture ...PASSED
+  OS Kernel Version ...PASSED
+  OS Kernel Parameter: semmsl ...PASSED
+  OS Kernel Parameter: semmns ...PASSED
+  OS Kernel Parameter: semopm ...PASSED
+  OS Kernel Parameter: semmni ...PASSED
+  OS Kernel Parameter: shmmax ...PASSED
+  OS Kernel Parameter: shmmni ...PASSED
+  OS Kernel Parameter: shmall ...PASSED
+  OS Kernel Parameter: file-max ...PASSED
+  OS Kernel Parameter: ip_local_port_range ...PASSED
+  OS Kernel Parameter: rmem_default ...PASSED
+  OS Kernel Parameter: rmem_max ...PASSED
+  OS Kernel Parameter: wmem_default ...PASSED
+  OS Kernel Parameter: wmem_max ...PASSED
+  OS Kernel Parameter: aio-max-nr ...PASSED
+  OS Kernel Parameter: panic_on_oops ...PASSED
+  Package: kmod-20-21 (x86_64) ...PASSED
+  Package: kmod-libs-20-21 (x86_64) ...PASSED
+  Package: binutils-2.30-49.0.2 ...PASSED
+  Package: libgcc-8.2.1 (x86_64) ...PASSED
+  Package: libstdc++-8.2.1 (x86_64) ...PASSED
+  Package: sysstat-10.1.5 ...PASSED
+  Package: ksh ...PASSED
+  Package: make-4.2.1 ...PASSED
+  Package: glibc-2.28 (x86_64) ...PASSED
+  Package: glibc-devel-2.28 (x86_64) ...PASSED
+  Package: libaio-0.3.110 (x86_64) ...PASSED
+  Package: nfs-utils-2.3.3-14 ...PASSED
+  Package: smartmontools-6.6-3 ...PASSED
+  Package: net-tools-2.0-0.51 ...PASSED
+  Package: policycoreutils-2.9-3 ...PASSED
+  Package: policycoreutils-python-utils-2.9-3 ...PASSED
+  Port Availability for component "Oracle Notification Service (ONS)" ...PASSED
+  Port Availability for component "Oracle Cluster Synchronization Services (CSSD)" ...PASSED
+  Users With Same UID: 0 ...PASSED
+  Current Group ID ...PASSED
+  Root user consistency ...PASSED
+  Package: cvuqdisk-1.0.10-1 ...PASSED
+  Package: psmisc-22.6-19 ...PASSED
+  Host name ...PASSED
+  Node Connectivity ...
+    Hosts File ...PASSED
+    Check that maximum (MTU) size packet goes through subnet ...PASSED
+    subnet mask consistency for subnet "192.168.20.0" ...PASSED
+    subnet mask consistency for subnet "192.168.10.0" ...PASSED
+    subnet mask consistency for subnet "192.168.168.0" ...PASSED
+    subnet mask consistency for subnet "10.68.26.0" ...PASSED
+  Node Connectivity ...FAILED (PRVG-11891, PRVG-11078, PRVG-11067, PRVG-11095, PRVG-11094)
+  Multicast or broadcast check ...PASSED
+  Network Time Protocol (NTP) ...
+    '/etc/chrony.conf' ...PASSED
+    Daemon 'chronyd' ...PASSED
+    NTP daemon or service using UDP port 123 ...PASSED
+    chrony daemon is synchronized with at least one external time source ...FAILED (PRVG-13605, PRVG-2043)
+  Network Time Protocol (NTP) ...FAILED (PRVG-13605, PRVG-2043)
+  Same core file name pattern ...PASSED
+  User Mask ...PASSED
+  User Not In Group "root": grid ...PASSED
+  Time zone consistency ...PASSED
+  Path existence, ownership, permissions and attributes ...
+    Path "/var" ...PASSED
+    Path "/dev/shm" ...PASSED
+  Path existence, ownership, permissions and attributes ...PASSED
+  Time offset between nodes ...PASSED
+  resolv.conf Integrity ...PASSED
+  DNS/NIS name service ...PASSED
+  Domain Sockets ...PASSED
+  Daemon "avahi-daemon" not configured and running ...PASSED
+  Daemon "proxyt" not configured and running ...PASSED
+  User Equivalence ...PASSED
+  RPM Package Manager database ...INFORMATION (PRVG-11250)
+  Maximum locked memory check ...PASSED
+  /dev/shm mounted as temporary file system ...PASSED
+  File system mount options for path /var ...PASSED
+  DefaultTasksMax parameter ...PASSED
+  zeroconf check ...PASSED
+  ASM Filter Driver configuration ...PASSED
+  Systemd login manager IPC parameter ...PASSED
+  ORAchk checks ...INFORMATION (PRVH-1507)
+
+Pre-check for cluster services setup was unsuccessful on all the nodes. 
+
+
+Failures were encountered during execution of CVU verification request "stage -pre crsinst".
+
+Swap Size ...FAILED
+gtmvlsbxdb13: PRVF-7573 : Sufficient swap size is not available on node
+              "gtmvlsbxdb13" [Required = 16GB (1.6777216E7KB) ; Found = 8GB
+              (8388604.0KB)]
+
+gtmvlsbxdb12: PRVF-7573 : Sufficient swap size is not available on node
+              "gtmvlsbxdb12" [Required = 16GB (1.6777216E7KB) ; Found = 8GB
+              (8388604.0KB)]
+
+Group Membership: asmadmin ...FAILED
+gtmvlsbxdb13: PRVG-10460 : User "grid" does not belong to group "asmadmin"
+              selected for privileges "OSASM" on node "gtmvlsbxdb13".
+
+gtmvlsbxdb12: PRVG-10460 : User "grid" does not belong to group "asmadmin"
+              selected for privileges "OSASM" on node "gtmvlsbxdb12".
+
+Node Connectivity ...FAILED
+PRVG-11891 : Connectivity failed between interface "ens224" configured with IP
+address "192.168.168.96" on node "gtmvlsbxdb12" and interface "ens224"
+configured with IP address "192.168.168.97" on node "gtmvlsbxdb13" for the
+subnet "192.168.168.0".
+PRVG-11078 : node connectivity failed for subnet "192.168.168.0"
+
+gtmvlsbxdb13: PRVG-11067 : TCP connectivity from node "gtmvlsbxdb13":
+              "192.168.168.97" to node "gtmvlsbxdb12": "192.168.168.96" failed.
+              PRVG-11095 : The TCP system call "connect" failed with error
+              "113" while executing exectask on node "gtmvlsbxdb13"
+              No route to host
+
+gtmvlsbxdb12: PRVG-11094 : Ping connectivity check from the source IP address
+              "192.168.168.96" to the destination IP address "192.168.168.97"
+              failed.
+              PING 192.168.168.97 (192.168.168.97) from 192.168.168.96 : 56(84)
+              bytes of data.--- 192.168.168.97 ping statistics ---3 packets
+              transmitted, 0 received, 100 0x185acket loss, time 2079ms
+
+Refer to My Oracle Support notes "1357657.1" for more details regarding errors 
+PRVG-11067".
+
+Network Time Protocol (NTP) ...FAILED
+  chrony daemon is synchronized with at least one external time source ...FAILED
+  gtmvlsbxdb13: PRVG-13605 : Query of chrony daemon for its time sources could
+                not be performed on node "gtmvlsbxdb13".
+                PRVG-2043 : Command "/usr/bin/chronyc -c sources " failed on
+                node "gtmvlsbxdb13" and produced the following output:
+                506 Cannot talk to daemon
+
+
+  gtmvlsbxdb12: PRVG-13605 : Query of chrony daemon for its time sources could
+                not be performed on node "gtmvlsbxdb12".
+                PRVG-2043 : Command "/usr/bin/chronyc -c sources " failed on
+                node "gtmvlsbxdb12" and produced the following output:
+                506 Cannot talk to daemon
+
+
+RPM Package Manager database ...INFORMATION
+PRVG-11250 : The check "RPM Package Manager database" was not performed because
+it needs 'root' user privileges.
+
+Refer to My Oracle Support notes "2548970.1" for more details regarding errors 
+PRVG-11250".
+
+ORAchk checks ...INFORMATION
+PRVH-1507 : ORAchk/EXAchk checks are skipped.
+
+
+CVU operation performed:      stage -pre crsinst
+Date:                         Aug 25, 2023 10:47:20 AM
+CVU version:                  19.20.0.0.0 (062923x8664)
+CVU home:                     /u02/app/19.3.0/grid
+User:                         grid
+Operating system:             Linux5.4.17-2136.321.4.1.el8uek.x86_64
