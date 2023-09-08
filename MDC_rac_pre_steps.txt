@@ -1,5 +1,5 @@
 [oracle@hrmdc1oel01 software]$ cat .p
-PRDA7pr$bQJ59Bj
+
 [oracle@hrmdc1oel01 software]$ more rac.txt
 
 groupadd -g 54421 oinstall
