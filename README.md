@@ -1,0 +1,2 @@
+# RAC_SETUP_19c_2023
+Oracle RAC setup 2023
